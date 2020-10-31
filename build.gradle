@@ -1,0 +1,70 @@
+buildscript {
+  ext.deps = [
+      rx: [
+          java: "io.reactivex.rxjava2:rxjava:2.2.20",
+          android: "io.reactivex.rxjava2:rxandroid:2.1.1",
+          relay: "com.jakewharton.rxrelay2:rxrelay:2.1.1",
+      ],
+      dagger: [
+          runtime: "com.google.dagger:dagger:2.29.1",
+          compiler: "com.google.dagger:dagger-compiler:2.29.1",
+      ],
+      assistedInject: [
+          runtime: "com.squareup.inject:assisted-inject-annotations-dagger2:0.6.0",
+          compiler: "com.squareup.inject:assisted-inject-processor-dagger2:0.6.0",
+      ],
+      inflationInject: [
+          runtime: "com.squareup.inject:inflation-inject:0.6.0",
+          compiler: "com.squareup.inject:inflation-inject-processor:0.6.0",
+      ],
+      test: [
+          junit: "junit:junit:4.13",
+          truth: "com.google.truth:truth:1.0.1",
+      ]
+  ]
+
+  repositories {
+    google()
+    jcenter()
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:4.1.0"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+  }
+}
+
+allprojects {
+  repositories {
+    google()
+    jcenter()
+  }
+}
+
+subprojects { subproject ->
+  plugins.withType(com.android.build.gradle.BasePlugin).configureEach { plugin ->
+    def android = plugin.extension
+    android.compileSdkVersion 30
+    android.defaultConfig {
+      minSdkVersion 21
+    }
+    android.compileOptions {
+      sourceCompatibility = JavaVersion.VERSION_1_8
+      targetCompatibility = JavaVersion.VERSION_1_8
+    }
+  }
+
+  tasks.withType(JavaCompile).configureEach { task ->
+    task.sourceCompatibility = JavaVersion.VERSION_1_8
+    task.targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile).configureEach { task ->
+    task.kotlinOptions {
+      jvmTarget = "1.8"
+    }
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}

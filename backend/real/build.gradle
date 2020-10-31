@@ -1,0 +1,12 @@
+plugins {
+  id 'com.android.library'
+  id 'kotlin-android'
+  id 'kotlin-kapt'
+}
+
+dependencies {
+  api project(':backend:api')
+
+  implementation deps.dagger.runtime
+  kapt deps.dagger.compiler
+}

@@ -1,0 +1,8 @@
+plugins {
+  id 'kotlin'
+}
+
+dependencies {
+  api project(':backend:api')
+  api deps.rx.relay
+}

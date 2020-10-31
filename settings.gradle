@@ -1,0 +1,11 @@
+include ':app'
+include ':backend:api'
+include ':backend:fakes'
+include ':backend:real'
+include ':blockers:presenters'
+include ':blockers:viewmodels'
+include ':blockers:views'
+include ':presenters'
+include ':viewmodels'
+
+rootProject.name = "Assisted Inject + Incremental Kapt"
